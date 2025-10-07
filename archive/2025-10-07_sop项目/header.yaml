@@ -1,0 +1,11 @@
+---
+pdf-engine: xelatex
+mainfont: "Noto Serif CJK SC"
+sansfont: "Noto Sans CJK SC"
+monofont: "JetBrains Mono"
+geometry: margin=22mm
+header-includes:
+  - \usepackage{xeCJK}
+  - \usepackage{mhchem}
+  - \usepackage{amsmath,amssymb}
+---

@@ -1,0 +1,147 @@
+{
+  "version": "chatgpt-sop-v1.0",
+  "audience": "student",
+  "policy": {
+    "value_first_mode": true,
+    "in_syllabus_only": true,
+    "ban_phrases": ["显然", "略", "同理(无依据)", "A/B 测试", "内部评分", "scorecard"],
+    "show_B_when": {"subject_whitelist": ["MATH", "PHYS"], "value_gain_threshold": 0.55},
+    "show_C_when": {"transfer_gain_threshold": 0.6, "manual_request": true}
+  },
+  "layout": {
+    "target": "A4-single-page",
+    "max_total_chars": 1200,
+    "max_equations": 12,
+    "max_lines_per_block": 7,
+    "headings_compact": true,
+    "figure_budget": {"svg_max_width_px": 320, "ascii_max_lines": 6, "ascii_max_cols": 36},
+    "prune_order_on_overflow": [
+      "迁移微练（可选）",
+      "C_思维拓展_展开内容",
+      "关键图：简化到ASCII",
+      "B_高效捷径",
+      "要点速记（回忆链）压缩到≤4条",
+      "易错预警&自检：各保1条",
+      "30秒自查卡：保2条"
+    ],
+    "notes": "最终结果必须适配一页A4；如溢出，按顺序精简，且绝不删‘结论/A链/得分点/自查卡(≥2条)’"
+  },
+  "output_contract": {
+    "sections_order": [
+      "标题条",
+      "结论",
+      "具体解答（A/B/C）",
+      "30秒自查卡",
+      "得分点对齐清单",
+      "要点速记（回忆链）",
+      "真题锚点",
+      "题干改写（可选）",
+      "迁移微练（可选）"
+    ],
+    "rendering": {
+      "headings": {
+        "标题条": "# 标题条",
+        "结论": "# 结论",
+        "具体解答（A/B/C）": "# 具体解答（A/B/C）",
+        "得分点对齐清单": "# 得分点对齐清单",
+        "30秒自查卡": "# 30秒自查卡",
+        "易错预警&自检": "# 易错预警&自检",
+        "要点速记（回忆链）": "# 要点速记（回忆链）",
+        "真题锚点": "# 真题锚点",
+        "迁移微练（可选）": "# 迁移微练（可选）",
+        "题干改写（可选）": "# 题干改写（可选）"
+      }
+    }
+  },
+  "sections": {
+    "标题条": {
+      "fields": ["题名", "学科", "题型", "难度", "时间预算(min)"],
+      "limits": {"max_chars": 60}
+    },
+    "结论": {
+      "limits": {"max_conclusions": 3},
+      "rules": ["每小问一句写清；单位/精度完整", "旁注：建议先尝试后核对"]
+    },
+    "具体解答（A/B/C）": {
+      "A": {
+        "headline": {
+          "why": "string",
+          "mnemonic_<=8": "string",
+          "first_step_guide_3": ["string","string","string"],
+          "target_time_min": 0,
+          "min_write_requirements": ["string"],
+          "common_loss_sents": ["string"]
+        },
+        "max_steps": 7,
+        "step_fields": ["WHY", "HOW", "RESULT", "EQ", "P#", "REASON_12", "MIN_WRITE"],
+        "embed_figure_after_step": 3,
+        "figure_policy": {
+          "render_order": ["SVG_inline", "ASCII_art", "文字步骤"],
+          "mandatory_by_subject": true,
+          "ascii_limits": {"max_lines": 6, "max_cols": 36},
+          "subjects": {
+            "MATH": {"must": ["导数号线或函数/几何示意"]},
+            "PHYS": {"must": ["FBD受力图或电路简图"]},
+            "CHEM": {"must": ["位向/机理箭头或ICE小表"]},
+            "BIO": {"must": ["对照表或Punnett小格/判别树"]}
+          }
+        },
+        "quantified_example": {"required_subjects": ["PHYS", "CHEM"], "format": {"case": "string", "numbers": "string", "check_pass": true}}
+      },
+      "B": {"label_expert_only": true, "equivalence_to_A_required": true, "equivalence_ref": "A{n}", "max_steps": 5, "max_text_chars": 110, "max_formula": 3, "note": "每步标 等价A{n}"},
+      "C": {"max_bullets": 3, "format": "结构/情境信号｜方法框｜迁移方向", "default_fold": true}
+    },
+    "得分点对齐清单": {"format": "步骤编号 ↔ 评分点P#", "no_points_value": true, "full_table_required": true},
+    "30秒自查卡": {"items": ["单位/量纲一致性", "特殊值/极限", "边界条件/适用域", "数值量级合理"], "time_budget_sec": 30, "limits": {"min_items": 3, "max_items": 4, "prefer_compact": true}, "on_fail_go_to": {"instruction": "若第i条不通过→返回对应P#重做", "example": "量纲不一致→回到P2检查单位"}},
+    "易错预警&自检": {
+      "must": ["2个常见错因", "1个自检问题"],
+      "limits": {"max_chars": 180}
+    },
+    "要点速记（回忆链）": {
+      "limits": {"max_items": 6, "compact": true},
+      "format": "刺激→口令→动作"
+    },
+    "真题锚点": {
+      "limits": {"min": 2, "max": 2},
+      "fields": ["年份", "卷别", "科目", "题号", "考点对应"],
+      "placeholder_when_missing": true
+    },
+    "迁移微练（可选）": {"limits": {"count": 3}, "format": "题源标签｜思路口令｜答案(一行)"},
+    "术语旁注": {"must": true, "note_len": "8–12字", "rule": "术语首次出现给白话旁注"}
+  },
+  "quality_gates": {
+    "first_screen_quartet": {"must_have": ["结论", "A1–A3", "关键图", "30秒自查≥3条"], "on_violation": "rewrite"},
+    "no_placeholders": true,
+    "term_glossary_required": true,
+    "bw_printable": true
+  },
+  "subjects": {
+    "MATH": {
+      "signals": ["单调", "极值", "凹凸", "对称", "递推", "望远镜", "三角恒等"],
+      "first_step_guide": ["配方/换元/移位差分/作图读值"],
+      "quick_verification": ["特殊值与端点", "符号与范围一致", "等价变换可逆性"],
+      "mnemonics": ["桥(分离)", "根(零点)", "和(望远镜)", "极(单调极值)", "凸(切线界)"]
+    },
+    "PHYS": {
+      "signals": ["受力图FBD", "守恒(能量/动量)", "电路(KCL/KVL/等效)", "简谐近似"],
+      "first_step_guide": ["先画图(FBD/电路图)→列已知→选守恒/回路方程"],
+      "quick_verification": ["单位/量纲", "极限(R→0/∞、μ→0/∞)", "方向与符号合理"],
+      "mnemonics": ["图(画图)", "定(守恒)", "回(回路)", "等(等效)", "向(方向)"]
+    },
+    "CHEM": {
+      "signals": ["配平/氧化还原", "ICE表", "K–Q判据", "滴定/热化/电化"],
+      "first_step_guide": ["先配平或建ICE；定义K与Q；判方向"],
+      "quick_verification": ["电荷/物料守恒", "K vs Q方向", "有效数字与5%近似自检"],
+      "mnemonics": ["配(配平)", "冰(ICE)", "常(K)", "氧(氧化数)", "净(净离子)"]
+    },
+    "BIO": {
+      "signals": ["遗传(Punnett/连锁)", "实验设计(对照/变量)", "统计(χ²/t)", "图表判读"],
+      "first_step_guide": ["提出假设→列变量与对照→画表→选统计方法+阈值"],
+      "quick_verification": ["对照是否存在", "变量是否明示", "统计方法匹配：分类→χ²，均值→t"],
+      "mnemonics": ["假(假设)", "设(设计)", "控(对照)", "统(统计)", "误(误差)"]
+    }
+  }
+  ,
+  "type_adapters_ref": "type_adapters.yaml",
+  "figures_index_ref": "figures/index.json"
+}

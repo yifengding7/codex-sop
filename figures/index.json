@@ -1,0 +1,25 @@
+{
+  "MATH": {
+    "CHOICE": ["stencils/math_derivative_sign_line_ascii.txt"],
+    "BLANK": ["stencils/math_derivative_sign_line_ascii.txt"],
+    "FINAL": ["stencils/math_derivative_sign_line_ascii.txt"]
+  },
+  "PHYS": {
+    "CHOICE": ["stencils/phys_fbd_ascii.txt"],
+    "BLANK": ["stencils/phys_circuit_ascii.txt"],
+    "EXPERIMENT": ["stencils/phys_setup_ascii.txt"],
+    "FINAL": ["stencils/phys_fbd_ascii.txt"]
+  },
+  "CHEM": {
+    "CHOICE": ["stencils/chem_aromatic_positions_ascii.txt"],
+    "BLANK": ["stencils/chem_ice_table_ascii.txt"],
+    "EXPERIMENT": ["stencils/chem_apparatus_ascii.txt"],
+    "FINAL": ["stencils/chem_aromatic_positions_ascii.txt"]
+  },
+  "BIO": {
+    "CHOICE": ["stencils/bio_punnett_ascii.txt"],
+    "EXPERIMENT": ["stencils/bio_control_table_ascii.txt"],
+    "FINAL": ["stencils/bio_flow_ascii.txt"]
+  }
+}
+

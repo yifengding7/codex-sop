@@ -1,0 +1,61 @@
+# 题型适配（Rescue‑First A4）
+
+defaults:
+  sections_order: [
+    "标题条",
+    "结论",
+    "具体解答（A/B/C）",
+    "30秒自查卡",
+    "得分点对齐清单",
+    "要点速记（回忆链）",
+    "真题锚点",
+    "题干改写（可选）",
+    "迁移微练（可选）"
+  ]
+  a_chain:
+    headline_fields: [why, mnemonic_<=8, first_step_guide_3, target_time_min, min_write_requirements, common_loss_sents]
+    max_steps: 7
+    embed_figure_after_step: 3
+  self_check:
+    items: ["单位/量纲一致性", "特殊值/极限", "边界条件/适用域", "数值量级合理"]
+    min: 3
+    max: 4
+  b_gate:
+    label: "熟练者专用"
+    must_equiv_A: true
+    max_steps: 5
+    max_text_chars: 120
+    max_formula: 3
+
+CHOICE:
+  sections_inserts:
+    after_A: ["干扰项诊断（选错原因→对应判据/边界）"]
+  self_check:
+    items: ["判据充要", "边界/适用域", "特殊值/极限", "单位/逻辑一致"]
+
+BLANK:
+  self_check:
+    items: ["单位/有效数字", "正负/范围", "特殊值/极限", "量级合理"]
+
+EXPERIMENT:
+  self_check:
+    items: ["对照/变量明示", "读数/单位", "误差与改进", "安全要点"]
+  a_chain:
+    headline_fields: [why, mnemonic_<=8, first_step_guide_3, target_time_min, min_write_requirements, common_loss_sents]
+
+FINAL:
+  a_chain:
+    embed_figure_after_step: 3  # 结构导图/关系图
+  self_check:
+    items: ["充要步骤齐备", "极限/边界/可逆性", "关键假设明示", "量级/一致性"]
+
+subjects:
+  MATH:
+    figure_must: ["导数号线", "函数/几何示意"]
+  PHYS:
+    figure_must: ["FBD 受力图", "电路简图"]
+  CHEM:
+    figure_must: ["芳环位向", "ICE 表", "机理箭头（可文字）"]
+  BIO:
+    figure_must: ["对照表", "Punnett 小格", "判别树"]
+

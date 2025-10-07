@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "version": "1.6.0-skeleton",
+    "id": "",
+    "subject": "",
+    "province": "湖南",
+    "question_type": "",
+    "difficulty": "",
+    "time_budget_sec": 600,
+    "points": null,
+    "student_painpoint": [],
+    "route_priority": "A>B>C"
+  },
+  "parse": {
+    "clean_text": "",
+    "givens": [],
+    "unknowns": [],
+    "constraints": []
+  },
+  "notation": {"symbols": [], "definitions": []},
+  "assumptions": {"explicit": [], "implicit": [], "rejected_options": []},
+  "classification": {
+    "domain": "",
+    "subtype": "",
+    "standard_methods": [],
+    "signal_tags": []
+  },
+  "derivation": {
+    "steps": [
+      {"step_id": "S1", "claim_latex": "", "reason": "", "from_steps": [], "notes": ""}
+    ]
+  },
+  "methods_abc": {
+    "A": {"steps_ref": "derivation.steps", "eta_sec": 0, "stars": [], "pitfalls": []},
+    "B": {
+      "preconditions": ["评分点可完全覆盖"],
+      "b_steps": [{"id": "B1", "claim_latex": "", "reason": "", "maps_point": ""}],
+      "savings": {"time_ratio": 1.0, "steps_ratio": 1.0, "ops_ratio": 1.0},
+      "eta_sec": 0,
+      "stars": [],
+      "pitfalls": []
+    },
+    "C": {
+      "c_steps": [{"id": "C1", "idea": ""}],
+      "transfer_signals": [],
+      "eta_sec": 0,
+      "stars": [],
+      "pitfalls": []
+    }
+  },
+  "results": {"final_answers": {}, "closed_forms": [], "one_line": ""},
+  "validation": {
+    "numerical_checks": [{"case": "", "computed": "", "formula": "", "match": true}],
+    "edge_cases": [],
+    "consistency": []
+  },
+  "rubric_map": {
+    "points": 0,
+    "mapping": [{"point_id": "P1", "score": 0, "covers_steps": [], "plan": "A"}],
+    "scorepoint_checks": []
+  },
+  "pitfalls": {"common_errors": [], "diagnostics": [], "fixes": []},
+  "true_exam_anchors": {
+    "anchors": [
+      {
+        "年份": null,
+        "卷别": "[占位]",
+        "科目": "<inherit meta.subject>",
+        "题号": "[占位]",
+        "考点对应": ["待补充"],
+        "method_mapping": []
+      }
+    ]
+  },
+  "solve": {
+    "A": {"steps": ["…"], "stars": [], "pitfalls": [], "eta_sec": 0},
+    "B": {"steps": ["…"], "stars": [], "pitfalls": [], "eta_sec": 0},
+    "C": {"steps": ["…"], "stars": [], "pitfalls": [], "eta_sec": 0}
+  },
+  "verify": {
+    "unit": false,
+    "range": false,
+    "sign": false,
+    "magnitude": false,
+    "substitution": false,
+    "multi_select_rule": false,
+    "notes": "",
+    "migration_points": [],
+    "actual_time_sec": 0,
+    "time_breach": false,
+    "route_used": "A",
+    "stoploss_trigger_at": "none"
+  },
+  "l2_handoff": {
+    "must_not_change": [
+      "results.final_answers.*",
+      "derivation.steps.*",
+      "assumptions.*",
+      "validation.numerical_checks.*"
+    ],
+    "can_rephrase": ["parse.clean_text", "pitfalls.*", "generalization.*", "rubric_map.mapping 文案"]
+  },
+  "render_bindings": [
+    {"to_section": "结论（每小问一句写清）", "from": "results.final_answers"},
+    {"to_section": "得分点对齐清单（本解各步 ↔ 评分点映射）", "from": "rubric_map.mapping"},
+    {"to_section": "方案A｜保分直推（严格按评分细则）", "from": "derivation.steps"},
+    {"to_section": "方案B｜高效捷径（考纲内更少步骤/运算）", "from": "methods_abc.B.b_steps"},
+    {"to_section": "方案C｜思维拓展（结构化思路）", "from": "methods_abc.C.c_steps"},
+    {"to_section": "高考真题（近5年 2–3 题）", "from": "true_exam_anchors.anchors"}
+  ],
+  "runtime": {
+    "profile": "standard8",
+    "round_order": ["Round1", "Round2", "Checks", "Deliver"]
+  }
+}
+
